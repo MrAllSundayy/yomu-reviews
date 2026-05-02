@@ -33,7 +33,7 @@ a {
 
 /* Layout wrapper */
 .header, .hero, .featured, .latest, .footer, .reviews, .review-page {
-    width: min(100%, 1000px);
+    width: min(100%, 1100px);
     margin: 0 auto;
     padding: 24px clamp(20px, 4vw, 42px);
 }
@@ -351,7 +351,7 @@ a {
 
 /* Genre filter bar */
 .filter-bar {
-    width: min(100%, 1000px);
+    width: min(100%, 1100px);
     margin: 0 auto 30px;
     padding: 0 clamp(20px, 4vw, 42px);
     display: flex;
@@ -433,7 +433,7 @@ a {
 
 /* Contact page */
 .contact-section {
-    width: min(100%, 1000px);
+    width: min(100%, 1100px);
     margin: 0 auto;
     padding: 24px clamp(20px, 4vw, 42px);
     padding-bottom: 68px;
@@ -559,7 +559,7 @@ a {
 
 /* Legal pages */
 .legal-page {
-    width: min(100%, 1000px);
+    width: min(100%, 1100px);
     margin: 0 auto;
     padding: 10px clamp(20px, 4vw, 42px) 68px;
 }
@@ -712,7 +712,7 @@ a {
 
 /* Admin page */
 .admin-section {
-    width: min(100%, 1000px);
+    width: min(100%, 1100px);
     margin: 0 auto;
     padding: 24px clamp(20px, 4vw, 42px);
     padding-bottom: 68px;
@@ -1002,3 +1002,4 @@ body.dark-mode .favorite-btn.favorited {
         flex-direction: column;
     }
 }
+
