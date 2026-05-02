@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - Yomu//Reviews</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html"><h1>Yomu<span>//Reviews</span></h1></a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>❤️ Your Favorites</h2>
+                <p>Reviews you have bookmarked.</p>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <div class="container-grid" id="favorites-grid"></div>
+            <p class="favorites-empty" id="favorites-empty">No favorites yet. Click the heart on any review card to add it here!</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 <a href="admin.html" class="footer-hidden">Yomu//Reviews</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
+        <p>All Rights Reserved</p>
+    </footer>
+
+    <button class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+
+    <script>
+        /*load favorites from localStorage + supabase*/
+        async function loadFavorites() {
+            const favIds = JSON.parse(localStorage.getItem("favorites") || "[]");
+            const grid = document.getElementById("favorites-grid");
+            const emptyMsg = document.getElementById("favorites-empty");
+
+            if (favIds.length === 0) {
+                emptyMsg.style.display = "block";
+                grid.style.display = "none";
+                return;
+            }
+
+            /*fetch all reviews from supabase*/
+            const { data, error } = await db.from("reviews").select("*");
+
+            if (error) {
+                console.log("Error:", error);
+                return;
+            }
+
+            emptyMsg.style.display = "none";
+            grid.style.display = "";
+            grid.innerHTML = "";
+
+            data.forEach(function (review) {
+                if (favIds.includes(review.id)) {
+                    grid.appendChild(createReviewCard(review));
+                }
+            });
+
+            /*init heart buttons*/
+            initFavorites();
+        }
+
+        loadFavorites();
+    </script>
+</body>
+</html>

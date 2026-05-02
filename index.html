@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Yomu//Reviews</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="supabase-config.js"></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+            <a href="index.html"><h1>Yomu<span>//Reviews</span></h1></a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="favorites.html">Favorites</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle">🌙</button>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>A spoiler-free reviews of manga & manhwa.</h2>
+                    <p>By a reader, for a reader.</p>
+                    <a href="reviews.html" class="btn">Browse All Reviews</a>
+                </div>
+            </section>
+
+            <section class="featured">
+                <div class="section-header">
+                    <h3>Featured Reviews</h3>
+                    <a href="reviews.html" class="view-all">View All</a>
+                </div>
+                <div class="container-grid" id="featured-grid">
+                    <p style="text-align:center; color:var(--text-muted); grid-column:1/-1;">Loading...</p>
+                </div>
+            </section>
+
+
+
+            <section class="latest">
+                <div class="section-header">
+                    <h3>Latest Reviews</h3>
+                </div>
+                <div class="latest-list" id="latest-list">
+                    <p style="text-align:center; color:var(--text-muted); padding:20px;">Loading...</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 <a href="admin.html" class="footer-hidden">Yomu//Reviews</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
+            <p>All Rights Reserved</p>
+        </footer>
+        <button class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+        <script src="script.js"></script>
+
+        <script>
+            /*load homepage sections from supabase*/
+            async function loadHomePage() {
+                const { data, error } = await db.from("reviews").select("*");
+
+                if (error) {
+                    console.log("Error:", error);
+                    return;
+                }
+
+                /*featured: top 4 rated*/
+                const featured = data.sort(function (a, b) { return b.rating - a.rating; }).slice(0, 4);
+                const featuredGrid = document.getElementById("featured-grid");
+                featuredGrid.innerHTML = "";
+
+                featured.forEach(function (review) {
+                    featuredGrid.appendChild(createReviewCard(review));
+                });
+
+                /*latest: 4 most recent*/
+                const latest = data.sort(function (a, b) {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                }).slice(0, 4);
+
+                const latestList = document.getElementById("latest-list");
+                latestList.innerHTML = "";
+
+                latest.forEach(function (review, index) {
+                    const rank = String(index + 1).padStart(2, "0");
+                    const item = document.createElement("div");
+                    item.className = "latest-item";
+                    item.innerHTML =
+                        '<span class="rank">' + rank + '</span>' +
+                        '<div class="item-info">' +
+                            '<h5>' + review.title + '</h5>' +
+                            '<p>' + review.genre + ' · ' + timeAgo(review.created_at) + '</p>' +
+                        '</div>' +
+                        '<a href="review.html?id=' + review.id + '" class="btn-small">Read</a>';
+                    latestList.appendChild(item);
+                });
+
+                /*init favorites after cards are loaded*/
+                initFavorites();
+            }
+
+
+            loadHomePage();
+        </script>
+    </body>
+</html>

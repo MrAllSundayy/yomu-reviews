@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review - Yomu//Reviews</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+
+<body>
+    <div class="progress-bar"></div>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html"><h1>Yomu<span>//Reviews</span></h1></a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2 id="hero-title">Loading...</h2>
+                <p id="hero-gist"></p>
+            </div>
+        </section>
+
+        <article class="review-page">
+            <div class="review-header">
+                <h2 id="review-title"></h2>
+                <div class="review-meta" id="review-meta"></div>
+            </div>
+
+            <div class="review-body" id="review-body"></div>
+
+            <a href="reviews.html" class="btn">← Back to Reviews</a>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 <a href="admin.html" class="footer-hidden">Yomu//Reviews</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
+        <p>All Rights Reserved</p>
+    </footer>
+
+    <button class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+
+    <script>
+        /*load single review from supabase*/
+        async function loadReview() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+
+            if (!id) {
+                document.getElementById("hero-title").textContent = "Review not found";
+                return;
+            }
+
+            const { data, error } = await db.from("reviews").select("*").eq("id", id).single();
+
+            if (error || !data) {
+                document.getElementById("hero-title").textContent = "Review not found";
+                return;
+            }
+
+            /*update page title*/
+            document.title = data.title + " - Yomu//Reviews";
+
+            /*fill hero section*/
+            document.getElementById("hero-title").textContent = data.title;
+            document.getElementById("hero-gist").textContent = data.gist;
+
+            /*fill review header*/
+            document.getElementById("review-title").textContent = data.title;
+            document.getElementById("review-meta").innerHTML =
+                "<p>Author: " + data.author + "</p>" +
+                "<p>Artist: " + data.artist + "</p>" +
+                "<p>Status: " + data.status + "</p>" +
+                "<p>Genre: " + data.genre + "</p>" +
+                "<p>Rating: " + data.rating + "/5</p>";
+
+            /*fill review body*/
+            document.getElementById("review-body").innerHTML =
+                "<h3>Overview</h3><p>" + data.overview + "</p>" +
+                "<h3>Story</h3><p>" + data.story + "</p>" +
+                "<h3>Art</h3><p>" + data.art + "</p>" +
+                "<h3>Characters</h3><p>" + data.characters + "</p>" +
+                "<h3>Final Verdict</h3><p>" + data.verdict + "</p>";
+
+            /*reading time estimate*/
+            const reviewBody = document.getElementById("review-body");
+            const reviewMeta = document.getElementById("review-meta");
+            const minutes = Math.ceil(reviewBody.textContent.split(/\s+/).length / 200);
+            const badge = document.createElement("p");
+            badge.className = "reading-time";
+            badge.textContent = "⏱️ " + minutes + " min read";
+            reviewMeta.appendChild(badge);
+        }
+
+        loadReview();
+    </script>
+</body>
+</html>
