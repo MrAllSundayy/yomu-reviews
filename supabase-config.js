@@ -1,10 +1,10 @@
-/*supabase config - replace with your own values*/
+/* supabase client */
 const SUPABASE_URL = "https://fcujqhexqfggceeewgii.supabase.co";
 const SUPABASE_KEY = "sb_publishable_-Vubj-nnYCBNGX5yJbwOUw_3AsBecQu";
 
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/*stars helper - converts rating number to star icons*/
+/* star rating display */
 function getStars(rating) {
     let stars = "";
     for (let i = 1; i <= 5; i++) {
@@ -19,7 +19,7 @@ function getStars(rating) {
     return stars;
 }
 
-/*time ago helper*/
+/* relative time format */
 function timeAgo(dateString) {
     const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
     const days = Math.floor(seconds / 86400);
@@ -30,7 +30,7 @@ function timeAgo(dateString) {
     return Math.floor(days / 7) + " weeks ago";
 }
 
-/*card builder - creates a review card element*/
+/* review card builder */
 function createReviewCard(review) {
     const card = document.createElement("article");
     card.className = "container";

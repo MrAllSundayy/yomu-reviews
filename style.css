@@ -1,9 +1,15 @@
+/* ============================
+   reset
+   ============================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ============================
+   color tokens (light)
+   ============================ */
 :root {
     --text-main: #1a1a1a;
     --text-soft: #555;
@@ -16,6 +22,9 @@
     --shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.08);
 }
 
+/* ============================
+   base
+   ============================ */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: white;
@@ -28,12 +37,18 @@ a {
     text-decoration: none;
 }
 
+/* ============================
+   layout wrapper
+   ============================ */
 .header, .hero, .featured, .latest, .footer, .reviews, .review-page {
-    width: min(100%, 1480px);
+    width: min(100%, 1200px);
     margin: 0 auto;
     padding: 24px clamp(20px, 4vw, 42px);
 }
 
+/* ============================
+   header & navigation
+   ============================ */
 .header {
     display: flex;
     justify-content: space-between;
@@ -74,6 +89,9 @@ a {
     color: #000;
 }
 
+/* ============================
+   hero banner
+   ============================ */
 .hero {
     text-align: center;
     margin-bottom: 68px;
@@ -97,6 +115,9 @@ a {
     margin-bottom: 30px;
 }
 
+/* ============================
+   buttons
+   ============================ */
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -113,6 +134,40 @@ a {
     transform: translateY(-1px);
 }
 
+.btn-small {
+    padding: 6px 18px;
+    background-color: transparent;
+    border: 1px solid var(--text-main);
+    color: var(--text-main);
+    border-radius: 30px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-small:hover {
+    background-color: var(--text-main);
+    color: #fff;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--text-soft);
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+}
+
+/* ============================
+   section headers
+   ============================ */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -140,6 +195,9 @@ a {
     color: #000;
 }
 
+/* ============================
+   review card grid
+   ============================ */
 .container-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -148,6 +206,7 @@ a {
 }
 
 .container {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -206,6 +265,9 @@ a {
     border-bottom-color: #000;
 }
 
+/* ============================
+   latest reviews list
+   ============================ */
 .latest-list {
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -251,21 +313,9 @@ a {
     font-size: 0.9rem;
 }
 
-.btn-small {
-    padding: 6px 18px;
-    background-color: transparent;
-    border: 1px solid var(--text-main);
-    color: var(--text-main);
-    border-radius: 30px;
-    font-weight: 500;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn-small:hover {
-    background-color: var(--text-main);
-    color: #fff;
-}
-
+/* ============================
+   footer
+   ============================ */
 .footer {
     text-align: center;
     padding: 30px clamp(20px, 4vw, 42px);
@@ -278,106 +328,15 @@ a {
     color: #000;
 }
 
-@media (max-width: 700px) {
-    .header {
-        flex-direction: column;
-        gap: 15px; 
-    }
-
-    .nav {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .nav ul {
-        justify-content: center;
-        padding: 0;
-    }
-
-    .hero {
-        padding: 48px 18px;
-    }
-
-    .hero h2 {
-        font-size: 2rem;
-    }
-
-    .container img {
-        height: 320px;
-    }
-
-    .latest-list {
-        padding: 0 18px;
-    }
+.footer-hidden {
+    color: inherit;
+    text-decoration: none;
+    cursor: default;
 }
 
-body.dark-mode {
-    --text-main: #e8e8e8;
-    --text-soft: #aaa;
-    --text-muted: #888;
-    --line: #2a2a2a;
-    --line-strong: #333;
-    --surface: #1a1a1a;
-    --surface-soft: #222;
-    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
-    --shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.5);
-    background-color: #111;
-}
-
-body.dark-mode .hero {
-    background: linear-gradient(180deg, #1a1a1a 0%, #222 100%);
-}
-
-body.dark-mode .hero h2,
-body.dark-mode .section-header h3,
-body.dark-mode .container-content h4,
-body.dark-mode .item-info h5 {
-    color: #f0f0f0;
-}
-
-body.dark-mode .btn:hover,
-body.dark-mode .nav a:hover,
-body.dark-mode .view-all:hover,
-body.dark-mode .read-more:hover,
-body.dark-mode .footer a:hover {
-    color: #fff;
-}
-
-body.dark-mode .btn {
-    background-color: #e8e8e8;
-    color: #111;
-}
-
-body.dark-mode .btn-small {
-    border-color: #e8e8e8;
-    color: #e8e8e8;
-}
-
-body.dark-mode .btn-small:hover {
-    background-color: #e8e8e8;
-    color: #111;
-}
-
-body.dark-mode .container img {
-    background-color: #222;
-}
-
-.theme-toggle {
-    background: none;
-    border: 1px solid var(--line-strong);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, border-color 0.2s ease;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-    border-color: var(--text-soft);
-}
-
+/* ============================
+   search box
+   ============================ */
 .search-box {
     display: flex;
     align-items: center;
@@ -414,9 +373,11 @@ body.dark-mode .container img {
     width: 200px;
 }
 
-
+/* ============================
+   genre filter bar
+   ============================ */
 .filter-bar {
-    width: min(100%, 1480px);
+    width: min(100%, 1200px);
     margin: 0 auto 30px;
     padding: 0 clamp(20px, 4vw, 42px);
     display: flex;
@@ -446,7 +407,9 @@ body.dark-mode .container img {
     border-color: var(--text-main);
 }
 
-/*review page*/
+/* ============================
+   single review page
+   ============================ */
 .review-page {
     padding-top: 10px;
     padding-bottom: 40px;
@@ -485,9 +448,22 @@ body.dark-mode .container img {
     font-size: 1.05rem;
 }
 
-/*contact page*/
+.reading-time {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 14px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ============================
+   contact page
+   ============================ */
 .contact-section {
-    width: min(100%, 1480px);
+    width: min(100%, 1200px);
     margin: 0 auto;
     padding: 24px clamp(20px, 4vw, 42px);
     padding-bottom: 68px;
@@ -556,6 +532,9 @@ body.dark-mode .container img {
     transform: translateY(-2px);
 }
 
+/* ============================
+   forms (shared)
+   ============================ */
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -604,16 +583,17 @@ body.dark-mode .container img {
     font-size: 0.95rem;
 }
 
-@media (max-width: 700px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
+.form-error {
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-top: 8px;
 }
 
-/*legal pages*/
+/* ============================
+   legal pages
+   ============================ */
 .legal-page {
-    width: min(100%, 1480px);
+    width: min(100%, 1200px);
     margin: 0 auto;
     padding: 10px clamp(20px, 4vw, 42px) 68px;
 }
@@ -657,17 +637,9 @@ body.dark-mode .container img {
     border-bottom-color: var(--text-main);
 }
 
-body.dark-mode .form-group input:focus,
-body.dark-mode .form-group textarea:focus {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
-}
-
-body.dark-mode .social-link:hover {
-    color: #fff;
-    border-color: #fff;
-}
-
-/*progress bar*/
+/* ============================
+   progress bar
+   ============================ */
 .progress-bar {
     position: fixed;
     top: 0;
@@ -680,7 +652,9 @@ body.dark-mode .social-link:hover {
     border-radius: 0 2px 2px 0;
 }
 
-/*favorite heart button*/
+/* ============================
+   favorite heart button
+   ============================ */
 .favorite-btn {
     position: absolute;
     top: 12px;
@@ -721,11 +695,9 @@ body.dark-mode .social-link:hover {
     100% { transform: scale(1); }
 }
 
-.container {
-    position: relative;
-}
-
-/*favorites section*/
+/* ============================
+   favorites section
+   ============================ */
 .favorites-section {
     margin-bottom: 68px;
 }
@@ -743,7 +715,9 @@ body.dark-mode .social-link:hover {
     border-radius: 14px;
 }
 
-/*back to top*/
+/* ============================
+   back to top button
+   ============================ */
 .back-to-top {
     position: fixed;
     bottom: 30px;
@@ -778,44 +752,41 @@ body.dark-mode .social-link:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-body.dark-mode .back-to-top {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-body.dark-mode .favorite-btn {
-    background: rgba(30, 30, 30, 0.9);
-    color: #666;
-}
-
-body.dark-mode .favorite-btn:hover {
-    color: #ef4444;
-}
-
-body.dark-mode .favorite-btn.favorited {
-    color: #ef4444;
-    background: rgba(30, 30, 30, 0.95);
-}
-
-/*reading time estimate*/
-.reading-time {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 4px 14px;
-    background: var(--surface-soft);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-}
-
-/*admin page*/
+/* ============================
+   admin page
+   ============================ */
 .admin-section {
-    width: min(100%, 1480px);
+    width: min(100%, 1200px);
     margin: 0 auto;
     padding: 24px clamp(20px, 4vw, 42px);
     padding-bottom: 68px;
 }
 
+.admin-heading {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+.admin-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.admin-toolbar .admin-heading {
+    margin-bottom: 0;
+}
+
+#login-section {
+    max-width: 440px;
+}
+
+/* ============================
+   admin form
+   ============================ */
 .admin-form {
     display: flex;
     flex-direction: column;
@@ -877,58 +848,9 @@ body.dark-mode .favorite-btn.favorited {
     cursor: not-allowed;
 }
 
-@media (max-width: 700px) {
-    .form-row {
-        flex-direction: column;
-    }
-}
-
-/*admin login and toolbar*/
-.admin-heading {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--text-main);
-    margin-bottom: 20px;
-}
-
-.admin-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-}
-
-.admin-toolbar .admin-heading {
-    margin-bottom: 0;
-}
-
-.btn-outline {
-    background: transparent;
-    border: 1px solid var(--line-strong);
-    color: var(--text-soft);
-    padding: 8px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.2s ease;
-}
-
-.btn-outline:hover {
-    border-color: var(--text-main);
-    color: var(--text-main);
-}
-
-.form-error {
-    color: #ef4444;
-    font-size: 0.9rem;
-    margin-top: 8px;
-}
-
-#login-section {
-    max-width: 440px;
-}
-
-/*admin review list*/
+/* ============================
+   admin review manager
+   ============================ */
 .admin-divider {
     border: none;
     border-top: 1px solid var(--line);
@@ -989,17 +911,148 @@ body.dark-mode .favorite-btn.favorited {
     cursor: not-allowed;
 }
 
-/*favorites page empty state*/
-.favorites-empty {
-    text-align: center;
-    color: var(--text-muted);
-    padding: 40px 20px;
-    font-size: 1rem;
+/* ============================
+   dark mode overrides
+   ============================ */
+body.dark-mode {
+    --text-main: #e8e8e8;
+    --text-soft: #aaa;
+    --text-muted: #888;
+    --line: #2a2a2a;
+    --line-strong: #333;
+    --surface: #1a1a1a;
+    --surface-soft: #222;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.5);
+    background-color: #111;
 }
 
-/*hidden admin link in footer*/
-.footer-hidden {
-    color: inherit;
-    text-decoration: none;
-    cursor: default;
+body.dark-mode .hero {
+    background: linear-gradient(180deg, #1a1a1a 0%, #222 100%);
+}
+
+body.dark-mode .hero h2,
+body.dark-mode .section-header h3,
+body.dark-mode .container-content h4,
+body.dark-mode .item-info h5 {
+    color: #f0f0f0;
+}
+
+body.dark-mode .btn:hover,
+body.dark-mode .nav a:hover,
+body.dark-mode .view-all:hover,
+body.dark-mode .read-more:hover,
+body.dark-mode .footer a:hover {
+    color: #fff;
+}
+
+body.dark-mode .btn {
+    background-color: #e8e8e8;
+    color: #111;
+}
+
+body.dark-mode .btn-small {
+    border-color: #e8e8e8;
+    color: #e8e8e8;
+}
+
+body.dark-mode .btn-small:hover {
+    background-color: #e8e8e8;
+    color: #111;
+}
+
+body.dark-mode .container img {
+    background-color: #222;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .social-link:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+body.dark-mode .back-to-top {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .favorite-btn {
+    background: rgba(30, 30, 30, 0.9);
+    color: #666;
+}
+
+body.dark-mode .favorite-btn:hover {
+    color: #ef4444;
+}
+
+body.dark-mode .favorite-btn.favorited {
+    color: #ef4444;
+    background: rgba(30, 30, 30, 0.95);
+}
+
+/* ============================
+   theme toggle
+   ============================ */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--text-soft);
+}
+
+/* ============================
+   responsive
+   ============================ */
+@media (max-width: 700px) {
+    .header {
+        flex-direction: column;
+        gap: 15px; 
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav ul {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .hero {
+        padding: 48px 18px;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .container img {
+        height: 320px;
+    }
+
+    .latest-list {
+        padding: 0 18px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
 }

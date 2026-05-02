@@ -1,4 +1,4 @@
-/*dark mode*/
+/* dark mode toggle */
 const toggle = document.getElementById("theme-toggle");
 
 if (localStorage.getItem("theme") === "dark") {
@@ -18,9 +18,7 @@ toggle.addEventListener("click", function () {
     }
 });
 
-/*contact form pop-up*/
-
-/*progress bar*/
+/* reading progress bar */
 const progressBar = document.querySelector(".progress-bar");
 
 if (progressBar) {
@@ -30,7 +28,7 @@ if (progressBar) {
     });
 }
 
-/*back to top*/
+/* back to top button */
 const backToTopBtn = document.querySelector(".back-to-top");
 
 if (backToTopBtn) {
@@ -43,11 +41,12 @@ if (backToTopBtn) {
     });
 }
 
-/*favorites system - uses review id from supabase*/
+/* get favorites from storage */
 function getFavorites() {
     return JSON.parse(localStorage.getItem("favorites") || "[]");
 }
 
+/* toggle favorite by id */
 function toggleFavorite(id) {
     const favs = getFavorites();
     if (favs.includes(id)) {
@@ -58,7 +57,7 @@ function toggleFavorite(id) {
     localStorage.setItem("favorites", JSON.stringify(favs));
 }
 
-/*add heart buttons to all cards on the page*/
+/* attach heart buttons to cards */
 function initFavorites() {
     const cards = document.querySelectorAll(".container");
 
@@ -66,12 +65,10 @@ function initFavorites() {
         const link = card.querySelector("a[href*='review.html']");
         if (!link) return;
 
-        /*get the review id from the link*/
         const url = new URL(link.href, window.location.origin);
         const id = parseInt(url.searchParams.get("id"));
         if (!id) return;
 
-        /*create heart button*/
         const heartBtn = document.createElement("button");
         heartBtn.className = "favorite-btn";
         heartBtn.innerHTML = '<i class="fas fa-heart"></i>';
