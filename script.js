@@ -1,4 +1,4 @@
-/* dark mode toggle */
+/* Dark mode toggle */
 const toggle = document.getElementById("theme-toggle");
 
 if (localStorage.getItem("theme") === "dark") {
@@ -18,7 +18,7 @@ toggle.addEventListener("click", function () {
     }
 });
 
-/* reading progress bar */
+/* Reading progress bar */
 const progressBar = document.querySelector(".progress-bar");
 
 if (progressBar) {
@@ -28,7 +28,7 @@ if (progressBar) {
     });
 }
 
-/* back to top button */
+/* Back to top button */
 const backToTopBtn = document.querySelector(".back-to-top");
 
 if (backToTopBtn) {
@@ -41,12 +41,12 @@ if (backToTopBtn) {
     });
 }
 
-/* get favorites from storage */
+/* Get favorites from storage */
 function getFavorites() {
     return JSON.parse(localStorage.getItem("favorites") || "[]");
 }
 
-/* toggle favorite by id */
+/* Toggle favorite by id */
 function toggleFavorite(id) {
     const favs = getFavorites();
     if (favs.includes(id)) {
@@ -57,7 +57,7 @@ function toggleFavorite(id) {
     localStorage.setItem("favorites", JSON.stringify(favs));
 }
 
-/* attach heart buttons to cards */
+/* Attach heart buttons to cards */
 function initFavorites() {
     const cards = document.querySelectorAll(".container");
 
